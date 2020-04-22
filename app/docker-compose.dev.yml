@@ -1,0 +1,26 @@
+version: '3.7'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - '8080:8080'
+    expose:
+      - '8080'
+    # volumes:
+    # - .:/opt/app-root/src:delegated
+    # hostname: app
+  db:
+    # https://hub.docker.com/_/postgres
+    image: postgres
+    hostname: db
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: silviculture
+      POSTGRES_PASSWORD: silviculture
+      POSTGRES_DATABASE: silviculture
