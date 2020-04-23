@@ -10,6 +10,9 @@
       "clientId": "silvipc-frontend",
       "realm": "cp1qly2d",
       "serverUrl": "https://sso-dev.pathfinder.gov.bc.ca/auth"
+    },
+    "orgbook": {
+      "endpoint": "https://orgbook.gov.bc.ca/api/v2"
     }
   },
   "server": {
@@ -36,7 +39,11 @@
       "ches": {
         "endpoint": "https://ches-master-9f0fbe-dev.pathfinder.gov.bc.ca/api"
       },
-      "tokenEndpoint": "https://sso-dev.pathfinder.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token"
+      "cdogs": {
+        "endpoint": "https://cdogs-master-idcqvl-dev.pathfinder.gov.bc.ca/api"
+      },
+      "tokenEndpoint": "https://sso-dev.pathfinder.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token",
+      "username": "SILVIPC_SERVICE_CLIENT"
     }
   }
 }

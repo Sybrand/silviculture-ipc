@@ -10,16 +10,22 @@
         <v-row>
           <v-col cols="12" lg="10">
             <h4 class="mb-1">Registered Business Name</h4>
+            <!-- <OrgBookSearch
+              v-model="businessName"
+              :field-rules="businessNameRules"
+            />-->
             <v-text-field
               dense
-              outlined
               flat
+              outlined
               solo
               v-model="businessName"
               :rules="businessNameRules"
             />
           </v-col>
         </v-row>
+
+        <hr />
 
         <h4>Primary Contact</h4>
         <v-row>
@@ -72,6 +78,104 @@
             />
           </v-col>
         </v-row>
+
+        <div v-if="addressPOC">
+          <hr />
+
+          <h4>Business Address</h4>
+          <span
+            class="red--text"
+          >Note: business requirements TBD. Will not save to submitted form yet</span>
+          <v-row>
+            <v-col cols="12" sm="6" lg="5">
+              <label>Address line 1</label>
+              <v-text-field dense flat outlined solo />
+            </v-col>
+            <v-col cols="12" sm="6" lg="5">
+              <label>Address line 2</label>
+              <v-text-field dense flat outlined solo />
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col cols="12" sm="6" lg="5">
+              <label>City</label>
+              <v-text-field dense flat outlined solo />
+            </v-col>
+            <v-col cols="12" sm="3" lg="2">
+              <label>Province</label>
+              <v-select :items="provinces" dense flat outlined solo />
+            </v-col>
+          </v-row>
+
+          <v-row>
+            <v-col cols="12" sm="3" lg="2">
+              <label>Postal Code</label>
+              <v-text-field dense flat outlined solo />
+            </v-col>
+          </v-row>
+
+          <hr />
+
+          <h4>Temporary Foreign Worker facility address(es)</h4>
+          <span
+            class="red--text"
+          >Note: pending business requirements TBD. Will not save to submitted form yet</span>
+
+          <v-checkbox v-model="tfwSameAddress" label="Same as business address"></v-checkbox>
+
+          <div v-if="!tfwSameAddress">
+            <v-card class="mb-5" v-for="(address, index) in tfwAddresses" :key="index">
+              <v-card-text>
+                <h4>Facility address {{ index + 1 }}</h4>
+
+                <v-row>
+                  <v-col cols="12" sm="6" lg="5">
+                    <label>Facility type</label>
+                    <v-select :items="facilityTypes" dense flat outlined solo />
+                  </v-col>
+                </v-row>
+
+                <v-row>
+                  <v-col cols="12" sm="6" lg="5">
+                    <label>Address line 1</label>
+                    <v-text-field dense flat outlined solo />
+                  </v-col>
+
+                  <v-col cols="12" sm="6" lg="5">
+                    <label>Address line 2</label>
+                    <v-text-field dense flat outlined solo />
+                  </v-col>
+                </v-row>
+
+                <v-row>
+                  <v-col cols="12" sm="6" lg="5">
+                    <label>City</label>
+                    <v-text-field dense flat outlined solo />
+                  </v-col>
+                  <v-col cols="12" sm="3" lg="2">
+                    <label>Province</label>
+                    <v-select :items="provinces" dense flat outlined solo />
+                  </v-col>
+                </v-row>
+
+                <v-row>
+                  <v-col cols="12" sm="3" lg="2">
+                    <label>Postal Code</label>
+                    <v-text-field dense flat outlined solo />
+                  </v-col>
+                </v-row>
+              </v-card-text>
+            </v-card>
+
+            <a class="buttonLink" href="#" @click.prevent="addTfwFacility()">
+              <strong>Add another facility</strong>
+              <v-btn color="primary" icon large>
+                <v-icon>add</v-icon>
+              </v-btn>
+            </a>
+          </div>
+        </div>
       </v-form>
     </v-container>
 
@@ -85,17 +189,32 @@
 </template>
 
 <script>
+import validator from 'validator';
 import { mapGetters, mapMutations } from 'vuex';
+
+//import OrgBookSearch from '@/components/form/OrgBookSearch.vue';
 
 export default {
   name: 'Step2',
-  props: ['reviewMode'],
+  props: {
+    reviewMode: Boolean
+  },
+  components: {
+    //OrgBookSearch
+  },
   data() {
     return {
       step2Valid: false,
+
+      // temp: temp
+      addressPOC: true,
+
+      // Todo: constants file
+      provinces: ['AB','BC','MB','NB','NL','NS','NT','NU','ON','PE','QC','SK','YT'],
+      facilityTypes: ['Tent', 'Cabin', 'RV', 'etc etc'],
+
       businessNameRules: [
         v => !!v || 'Business name is required',
-        v => (v && v.length <= 100) || 'Business name must be less than 100? characters',
       ],
       firstNameRules: [
         v => !!v || 'First name is required',
@@ -106,17 +225,18 @@ export default {
         v => (v && v.length <= 100) || 'Last name must be less than 100? characters',
       ],
       phone1Rules: [
-        v => !!v || 'Phone number is required'
+        v => !!v || 'Phone number is required',
+        v => validator.isMobilePhone(v) || 'invalid phone number format',
       ],
       emailRules: [
         v => !!v || 'e-mail is required',
-        v => /.+@.+\..+/.test(v) || 'e-mail must be valid',
+        v=> validator.isEmail(v, { allow_display_name: true }) || 'invalid e-mail format',
         v => (v && v.length <= 100) || 'e-mail must be less than 100? characters',
       ],
     };
   },
   computed: {
-    ...mapGetters('form', ['business', 'contacts']),
+    ...mapGetters('form', ['business', 'contacts', 'ipcPlan', 'tfwAddresses']),
 
     // Business
     businessName: {
@@ -145,9 +265,21 @@ export default {
       get() { return this.contacts.email; },
       set(value) { this.updateContacts({['email']: value}); }
     },
+
+    // Temporary Foreign Worker facility
+    tfwSameAddress: {
+      get() { return this.ipcPlan.tfwSameAddress; },
+      set(value) { this.updateIpcPlan({['tfwSameAddress']: value}); }
+    },
   },
   methods: {
-    ...mapMutations('form', ['setStep', 'updateBusiness', 'updateContacts']),
+    ...mapMutations('form', ['addTfWAddress', 'setStep', 'updateBusiness', 'updateContacts', 'updateIpcPlan']),
+    addTfwFacility() {
+      this.addTfWAddress();
+    },
+    updateBusinessName: function (org) {
+      this.businessName = org;
+    }
   }
 };
 </script>

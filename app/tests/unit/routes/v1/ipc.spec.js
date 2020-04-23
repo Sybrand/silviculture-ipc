@@ -2,7 +2,9 @@ const request = require('supertest');
 
 const helper = require('../../../common/helper');
 
+const email = require('../../../../src/components/email');
 const dataService = require('../../../../src/services/dataService');
+const transformService = require('../../../../src/services/transformService');
 const router = require('../../../../src/routes/v1/ipc');
 const validIPCPost = require('../../../fixtures/validIPCPost.json');
 
@@ -30,15 +32,21 @@ describe(`GET ${basePath}`, () => {
 
 describe(`POST ${basePath}`, () => {
   const saveSpy = jest.spyOn(dataService, 'save');
+  const sendReceiptSpy = jest.spyOn(email, 'sendReceipt');
+  const xformSpy = jest.spyOn(transformService, 'transformIPCPlan');
   let body;
 
   beforeEach(() => {
     saveSpy.mockReset();
+    sendReceiptSpy.mockReset();
+    xformSpy.mockReset();
     body = JSON.parse(JSON.stringify(validIPCPost));
   });
 
   it('should yield a created response', async () => {
     saveSpy.mockResolvedValue({});
+    sendReceiptSpy.mockResolvedValue({});
+    xformSpy.mockReturnValue({ confirmationNumber: '00000000' });
     const response = await request(app).post(`${basePath}`).send(body);
 
     expect(response.statusCode).toBe(201);
