@@ -1,0 +1,137 @@
+[
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "NODE_ENV",
+        "Value": "production"
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "DB_DATABASE",
+        "Value": "silviculture"
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "DB_HOST",
+        "Value": ""
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "DB_USERNAME",
+        "Value": ""
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "DB_PASSWORD",
+        "Value": ""
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "FRONTEND_BASEPATH",
+        "Value": "/app"
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "SERVER_BASEPATH",
+        "Value": "/app"
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "SERVER_KC_CLIENTID",
+        "Value": ""
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "SERVER_KC_CLIENTSECRET",
+        "Value": ""
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "SC_CS_USERNAME",
+        "Value": ""
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "SC_CS_PASSWORD",
+        "Value": ""
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "FRONTEND_APIPATH",
+        "Value": "api/v1"
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "FRONTEND_KC_CLIENTID",
+        "Value": ""
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "FRONTEND_KC_REALM",
+        "Value": ""
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "FRONTEND_KC_SERVERURL",
+        "Value": ""
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "SC_CS_CDOGS_ENDPOINT",
+        "Value": ""
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "SC_CS_CHES_ENDPOINT",
+        "Value": ""
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "SC_CS_TOKEN_ENDPOINT",
+        "Value": ""
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "SERVER_APIPATH",
+        "Value": "/api/v1"
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "SERVER_BODYLIMIT",
+        "Value": "30mb"
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "SERVER_KC_REALM",
+        "Value": ""
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "SERVER_KC_SERVERURL",
+        "Value": ""
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "SERVER_LOGLEVEL",
+        "Value": "info"
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "SERVER_MORGANFORMAT",
+        "Value": "combined"
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "SERVER_PORT",
+        "Value": "8080"
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "SERVER_RATELIMIT_IPC_MAX",
+        "Value": "10"
+    },
+    {
+        "Namespace": "aws:elasticbeanstalk:application:environment",
+        "OptionName": "SERVER_RATELIMIT_IPC_WINDOWMS",
+        "Value": "600000"
+    }
+]
